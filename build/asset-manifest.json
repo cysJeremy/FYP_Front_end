@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.js": "/static/js/main.8bef4288.js",
+    "static/media/Nissan.png": "/static/media/Nissan.3024657c1f77296778ef.png",
+    "static/media/Subaru.png": "/static/media/Subaru.55e24a29c9f131f506f9.png",
+    "static/media/Porsche.png": "/static/media/Porsche.37163d29f9e523b3d93d.png",
+    "static/media/LandRover.png": "/static/media/LandRover.6beab5d4013f1c938d62.png",
+    "static/media/test.jpg": "/static/media/test.8d0f35d9b1fc26bb7d4f.jpg",
+    "static/media/Audi.png": "/static/media/Audi.443b98137c3fa93b32e3.png",
+    "static/media/Mazda.png": "/static/media/Mazda.70d8a412e36473f4d70d.png",
+    "static/media/Kia.png": "/static/media/Kia.59a50cb9061b3718337f.png",
+    "static/media/Benz.png": "/static/media/Benz.b1bf0a72f28196bbbe21.png",
+    "static/media/BMW.png": "/static/media/BMW.5c5cabc0bc329b833bf7.png",
+    "static/media/Honda.png": "/static/media/Honda.d33f7a3c6e7f866abb1e.png",
+    "static/media/Infiniti.png": "/static/media/Infiniti.dc4036353958406aea3c.png",
+    "static/media/Hyundai.jpg": "/static/media/Hyundai.90412ead5ecab4e3b692.jpg",
+    "static/media/Volkswagen.png": "/static/media/Volkswagen.d63f05d0251467e95882.png",
+    "static/media/Tesla.png": "/static/media/Tesla.a7f4d496b3479a3231bc.png",
+    "static/media/Lexus.png": "/static/media/Lexus.3a507ce347bcc58b23fb.png",
+    "static/media/Mitsubishi.png": "/static/media/Mitsubishi.be5e204945c334c0d976.png",
+    "static/media/Toyota.png": "/static/media/Toyota.784fb86bbae97e883b44.png",
+    "static/media/Volvo.png": "/static/media/Volvo.fdb0ceb301fb1a3fffd1.png",
+    "static/media/Mini.png": "/static/media/Mini.19eff9069ec222699316.png",
+    "static/media/Suzuki.png": "/static/media/Suzuki.09f664332210019bdcd2.png",
+    "index.html": "/index.html",
+    "main.8bef4288.js.map": "/static/js/main.8bef4288.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.8bef4288.js"
+  ]
+}
