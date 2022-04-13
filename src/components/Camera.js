@@ -1,6 +1,6 @@
-import React from "react"
+import React,{ useEffect, useState } from "react"
 import Field from './Field'
-import IMAGE from "../image/test.jpg"
+
 export default function Camera(props) {
     const Logo = function(){
         const logo = {
@@ -36,96 +36,110 @@ export default function Camera(props) {
         return {getImage};
     };
 
-    React.useEffect(() => {
-        fetch("http://localhost:5000/detectCarBrand",{
-        method: 'POST',
-        headers: { "Content-Type": "application/json" },
-        files:{image:IMAGE}
-        })
-            .then(res => res.json())
-            .then((json) => {
-                
-            })
+    
+    const cameraID = "001"
+    const cameraUri = 'http://localhost:5000/getCameraImage?cameraID='+cameraID
+    const [field, setField] = useState([])
+    const [mainImage, setMainImage] = useState("")
+    const [cropNum, setCropNum] = useState(0)
+    useEffect(() => {
+        getImage();
     },[])
 
-    /*const [cropNum, setCropNum] = React.useState(0);
-    React.useEffect(() => {
-        fetch("http://localhost:5000/getCameraInfo?cameraID=001",{
-        method: 'GET',
-        headers: { "Content-Type": "application/json" },
-        files:{image:IM}
-        })
-            .then(res => res.json())
-            .then((json) => {
-                setCropNum(json.number_of_slots);
-            })
-    },[])
-
-   /* const [field, setField] = React.useState(updateField())
-    const [mainImage, setMainImage] = React.useState()
-    React.useEffect(() =>{
-        fetch("http://localhost:5000/getCameraImage?cameraID=001",{
+    const getImage = () =>{
+        fetch(cameraUri,{
             method: 'GET',
             headers: { "Content-Type": "application/json" },
+            redirect: 'follow'
             })
                 .then(res => res.json())
                 .then((json) => {
                     console.log(json)
+                    setCropNum(json.number_of_slots);
+
                     setMainImage("http://localhost:5000/"+json.main_image_path)
-                    //let image = require("./image/test.jpg")
-                   /* for (let i = 0; i < cropNum; i++) {
-                        let name = json.sub_image_path[i].split("/")[4]
-                        setField(oldFields => oldFields.map(field => 
-                            {return field.key === i+1 ? 
-                                {
-                                    ...field,
-                                    name:name,
-                                    image:"http://localhost:5000/"+json.sub_image_path[i],
-                                    des:name
-                                }:field}));
-                    }*/
-     /*           })
-    },[])*/
-
-    
- /*  function generateNewField(key,name,image) {
-
-        return {
-            //Crop the image in props.path
-            //fetch the image from api here
-            key:key,
-            name:name,
-            image:require("../image/test.jpg"),
-            logo:Logo().getImage("kia"),
-            des:name
-        }
-    }   
-    function updateField() {
-        const newfield = []
-        //let image = require("./image/test.jpg")
-        for (let i = 0; i < cropNum; i++) {
-            newfield.push(generateNewField(i,i+".jpg",));
-        }
-        return newfield;
+                    
+                    const newfield = []
+                    for(let i = 0; i < json.number_of_slots; i++){
+                        newfield.push({
+                            key:i+1,
+                            name: "Camera" + cameraID + "-slot-" + (i+1),
+                            image:"http://localhost:5000/"+json.sub_image_path[i],
+                            des:"detecting",
+                        });
+                    }
+                    console.log(newfield)
+                    setField(newfield)
+                })
     }
+    /*useEffect(() => {
+        if(mainImage != "")
+            CropImage()
+    }, [mainImage])
+    console.log(cropNum,mainImage)
+    const CropImage = () => {
+     
+      return new Promise(async (resolve, reject) => {
+        var formdata = new FormData();
+        let blob = await fetch(mainImage).then(r => r.blob());
+      formdata.append("image",blob);
+  
+    fetch("http://localhost:5000/updateCameraImage?cameraID=001", {
+        method: 'POST',
+        body: formdata,
+        redirect: 'follow'
+    })
+      .then(response => response.text())
+      .then(response => {
+            const json = JSON.parse(response)
+            console.log(json)
+            if (Array.isArray(json) && json.length > 0) {
+              setBrandID(json[0].class)
+            }
+            else{
+              setBrandID("")
+            }
+      })
+      .catch(error => console.log('error', error));
+      })
+    }*/
+    //const [brand, setBrand] = useState("")
     
-    
-     const fieldElements = field.map(field => (
+    /*useEffect(() => {
+        if(cropNum != 0 && slotImage.length == cropNum)
+            {const newfield = []
+            for(let i = 0; i < cropNum; i++){
+                console.log(slotImage[i])
+                DetectImage(slotImage[i])
+                
+                newfield.push({
+                    key:i+1,
+                    name: "Camera" + cameraID + "-slot-" + (i+1),
+                    image: slotImage[i],
+                    des:brand,
+                    brand:Logo().getImage(brand)
+                })
+            }
+            setField(newfield)}
+    }, [cropNum, slotImage.length])*/
+
+  
+    const fieldElements = field?field.map(field => (
         <Field
             key={field.key}
             name={field.name}
             image={field.image}  
             des={field.des}
-            brand={field.logo} 
+            logo={Logo()}
         />
-    ))*/
-    //console.log(mainImage)
+    )):<br/>
+          //brand={field.brand} 
     return(
         <div>
-        <Field image={IMAGE} name="input"/>
-            <div className="detection_container">
-                
-            </div>
+        <Field image={mainImage} name="input"/>
+            {cropNum !== 0 && <div className="detection_container">
+                {fieldElements}
+            </div>}
         </div>
     )
 }
