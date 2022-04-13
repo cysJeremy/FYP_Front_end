@@ -36,9 +36,9 @@ export default function Camera(props) {
         return {getImage};
     };
 
-    
+    const url ='http://localhost:5000/'
     const cameraID = "001"
-    const cameraUri = 'http://localhost:5000/getCameraImage?cameraID='+cameraID
+    const cameraUrl = url + "getCameraImage?cameraID="+cameraID
     const [field, setField] = useState([])
     const [mainImage, setMainImage] = useState("")
     const [cropNum, setCropNum] = useState(0)
@@ -47,7 +47,7 @@ export default function Camera(props) {
     },[])
 
     const getImage = () =>{
-        fetch(cameraUri,{
+        fetch(cameraUrl,{
             method: 'GET',
             headers: { "Content-Type": "application/json" },
             redirect: 'follow'
@@ -57,14 +57,14 @@ export default function Camera(props) {
                     console.log(json)
                     setCropNum(json.number_of_slots);
 
-                    setMainImage("http://localhost:5000/"+json.main_image_path)
+                    setMainImage(url+json.main_image_path)
                     
                     const newfield = []
                     for(let i = 0; i < json.number_of_slots; i++){
                         newfield.push({
                             key:i+1,
                             name: "Camera" + cameraID + "-slot-" + (i+1),
-                            image:"http://localhost:5000/"+json.sub_image_path[i],
+                            image:url+json.sub_image_path[i],
                             des:"detecting",
                         });
                     }
@@ -131,6 +131,7 @@ export default function Camera(props) {
             image={field.image}  
             des={field.des}
             logo={Logo()}
+            url= {url}
         />
     )):<br/>
           //brand={field.brand} 

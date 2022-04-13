@@ -1,11 +1,10 @@
 {
   "files": {
-    "main.js": "/static/js/main.089ef501.js",
+    "main.js": "/static/js/main.f470d635.js",
     "static/media/Nissan.png": "/static/media/Nissan.3024657c1f77296778ef.png",
     "static/media/Subaru.png": "/static/media/Subaru.55e24a29c9f131f506f9.png",
     "static/media/Porsche.png": "/static/media/Porsche.37163d29f9e523b3d93d.png",
     "static/media/LandRover.png": "/static/media/LandRover.6beab5d4013f1c938d62.png",
-    "static/media/test.jpg": "/static/media/test.8d0f35d9b1fc26bb7d4f.jpg",
     "static/media/Audi.png": "/static/media/Audi.443b98137c3fa93b32e3.png",
     "static/media/Mazda.png": "/static/media/Mazda.70d8a412e36473f4d70d.png",
     "static/media/Kia.png": "/static/media/Kia.59a50cb9061b3718337f.png",
@@ -23,9 +22,9 @@
     "static/media/Mini.png": "/static/media/Mini.19eff9069ec222699316.png",
     "static/media/Suzuki.png": "/static/media/Suzuki.09f664332210019bdcd2.png",
     "index.html": "/index.html",
-    "main.089ef501.js.map": "/static/js/main.089ef501.js.map"
+    "main.f470d635.js.map": "/static/js/main.f470d635.js.map"
   },
   "entrypoints": [
-    "static/js/main.089ef501.js"
+    "static/js/main.f470d635.js"
   ]
 }

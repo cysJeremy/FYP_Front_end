@@ -16,7 +16,7 @@ export default function Field(props){
       let blob = await fetch(image).then(r => r.blob());
     formdata.append("image",blob);
 
-    fetch("http://localhost:5000/detectCarBrand", {
+    fetch(props.url+"detectCarBrand", {
         method: 'POST',
         body: formdata,
         redirect: 'follow'
