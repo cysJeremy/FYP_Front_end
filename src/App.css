@@ -1,0 +1,6 @@
+main{
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
