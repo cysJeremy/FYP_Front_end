@@ -12,7 +12,7 @@ export default function Camera(props) {
             hyundai: require("../logo/Hyundai.jpg"),
             infiniti: require("../logo/Infiniti.png"),
             kia: require("../logo/Kia.png"),
-            landRover: require("../logo/LandRover.png"),
+            landrover: require("../logo/LandRover.png"),
             lexus: require("../logo/Lexus.png"),
             mini: require("../logo/Mini.png"),
             mazda: require("../logo/Mazda.png"),
@@ -39,7 +39,7 @@ export default function Camera(props) {
 
     const socket_url = 'ws://localhost:4000/'
     const flask_url = 'http://localhost:4000/'
-    const cameraID = "001"
+    const cameraID = "HKUST_001"
     const cameraUrl = flask_url + "getCameraImage?cameraID="+cameraID
     const [field, setField] = useState([])
     const [mainImage, setMainImage] = useState("")

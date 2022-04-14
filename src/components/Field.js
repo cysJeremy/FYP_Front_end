@@ -10,7 +10,9 @@ export default function Field(props){
   const [image, setImage] = useState((props.image))
 
   useEffect(()=>{
-    UpdateField(props.image) //update Field Element using the image URL
+    if(props.des){
+      UpdateField(props.image) //update Field Element using the image URL
+    }
   },[])
 
   const [updateCount, setUpdateCount] = useState(0)
@@ -23,8 +25,13 @@ export default function Field(props){
         UpdateField(props.image);
           if (arg == props.cameraID)
           {
-            console.print('haha');
-            UpdateField(props.image);
+            if(props.des){
+              console.print('haha');
+              UpdateField(props.image);
+            }else{
+              setImage(props.image)
+              console.log(image)
+            }
           }
       });
   }, []);
@@ -64,7 +71,7 @@ export default function Field(props){
     <div>
       <fieldset disabled className = "field" >
           <legend>{props.name}</legend>
-          <img src = {(image !== "" ? image:props.image)} className = "field_image"/>
+          <img src = {(image === props.image ? image: props.image )} className = "field_image" alt= {props.name+"image"}/>
           {props.des && <div className = "describe">
               <img src = {icon} className = "field_brand"/>
               <h4>{brand}</h4>
