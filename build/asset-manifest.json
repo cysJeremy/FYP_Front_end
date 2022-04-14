@@ -1,6 +1,10 @@
 {
   "files": {
+<<<<<<< Updated upstream
     "main.js": "/static/js/main.e11b71c6.js",
+=======
+    "main.js": "/static/js/main.3344b700.js",
+>>>>>>> Stashed changes
     "static/media/Nissan.png": "/static/media/Nissan.3024657c1f77296778ef.png",
     "static/media/Subaru.png": "/static/media/Subaru.55e24a29c9f131f506f9.png",
     "static/media/Porsche.png": "/static/media/Porsche.37163d29f9e523b3d93d.png",
@@ -22,9 +26,16 @@
     "static/media/Mini.png": "/static/media/Mini.19eff9069ec222699316.png",
     "static/media/Suzuki.png": "/static/media/Suzuki.09f664332210019bdcd2.png",
     "index.html": "/index.html",
+<<<<<<< Updated upstream
     "main.e11b71c6.js.map": "/static/js/main.e11b71c6.js.map"
   },
   "entrypoints": [
     "static/js/main.e11b71c6.js"
+=======
+    "main.3344b700.js.map": "/static/js/main.3344b700.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.3344b700.js"
+>>>>>>> Stashed changes
   ]
 }

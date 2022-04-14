@@ -1,4 +1,5 @@
 import React,{ useEffect, useState } from "react"
+import "./Camera.css"
 import Field from './Field'
 
 export default function Camera(props) {
