@@ -37,9 +37,9 @@ export default function Camera(props) {
         return {getImage};
     };
 
-    const socket_url = 'ws://localhost:4000/'
-    const flask_url = 'http://localhost:4000/'
-    const cameraID = "test"
+    const socket_url = 'ws://localhost:5000/'
+    const flask_url = 'http://localhost:5000/'
+    const cameraID = "001"
     const cameraUrl = flask_url + "getCameraImage?cameraID="+cameraID
     const [field, setField] = useState([])
     const [mainImage, setMainImage] = useState("")
@@ -138,12 +138,14 @@ export default function Camera(props) {
             des={field.des}
             logo={Logo()}
             url= {flask_url}
+            class = "field_slot"
         />
     )):<br/>
           //brand={field.brand} 
     return(
         <div>
-        <Field image={mainImage} name="input"/>
+        <Field image={mainImage} name="input"  class="field_main"/>
+            <br/>
             {cropNum !== 0 && <div className="detection_container">
                 {fieldElements}
             </div>}

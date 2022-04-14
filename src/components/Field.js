@@ -2,7 +2,7 @@ import React from "react"
 import { useState } from "react";
 import { useEffect } from "react";
 import io from 'socket.io-client'
-
+import "./Field.css"
 export default function Field(props){
 
   const [brand, setBrand] = useState("")
@@ -22,7 +22,6 @@ export default function Field(props){
         console.log(image);
         UpdateField(props.image);
           if (arg == props.cameraID)
-
           {
             console.print('haha');
             UpdateField(props.image);
@@ -66,7 +65,6 @@ export default function Field(props){
       <fieldset disabled className = "field" >
           <legend>{props.name}</legend>
           <img src = {image} className = "field_image"/>
-          <br />
           {props.des && <div className = "describe">
               <img src = {icon} className = "field_brand"/>
               <h4>{brand}</h4>

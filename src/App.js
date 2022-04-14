@@ -1,7 +1,7 @@
 import React from "react"
 import Header from "./components/Header"
 import Camera from "./components/Camera"
-
+import "./App.css"
 export default function App() {
   //const [mode, setMode] = React.useState(0)
   /*  const [modeList, setModeList] = React.useState(["camera","video","picture"])
