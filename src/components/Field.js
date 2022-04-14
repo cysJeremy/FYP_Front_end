@@ -9,44 +9,43 @@ export default function Field(props){
   const [icon, setIcon] = useState("")
   const [image, setImage] = useState((props.image))
 
+  //Load Field Details upon initial rendering
   useEffect(()=>{
-    if(props.des){
       UpdateField(props.image) //update Field Element using the image URL
-    }
   },[])
 
-  const [updateCount, setUpdateCount] = useState(0)
-  const socket = io(props.url);
+  //Socket.IO listener for auto-updating
   useEffect( () => {
+      //console.log('add camera ', props.cameraID);
+      //console.log('add socket ', props.url);
+      //console.log('add image ', props.image);
+      const socket = io(props.url);
       socket.on('connect', function(){});
       socket.on("CameraImageUpdated", (arg) => { 
-        //setImage(image);
-        console.log(image);
-        UpdateField(props.image);
-          if (arg === props.cameraID)
+        //console.log(image);
+          if (arg === props.cameraID) //Message applies to all the fields of the same cameraID
           {
-              console.print('haha');
               UpdateField(props.image);
-              console.log(image)
+              //console.log(image);
           }
       });
   }, []);
 
   const UpdateField = (image) => {
-    
     return new Promise(async (resolve, reject) => {
       var formdata = new FormData();
       let blob = await fetch(image).then(r => r.blob());
     formdata.append("image",blob);
 
+    //set the image of field
     setImage(URL.createObjectURL(blob));
-
-    console.log(image);
-    fetch(props.url+"detectCarBrand", {
+    if(props.des)
+    {
+        fetch(props.url + "detectCarBrand", {
         method: 'POST',
         body: formdata,
         redirect: 'follow'
-    })
+      })
       .then(response => response.text())
       .then(response => {
             const json = JSON.parse(response)
@@ -61,7 +60,8 @@ export default function Field(props){
                 setIcon(props.logo.getImage(""));
             }
       })
-      .catch(error => console.log('error', error));
+      .catch(error => console.log('error', error));  
+    }
     })
   }
   

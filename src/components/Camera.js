@@ -42,9 +42,8 @@ export default function Camera(props) {
     const cameraID = "test"
     const cameraUrl = flask_url + "getCameraImage?cameraID="+cameraID
     const [field, setField] = useState([])
-    const [mainImage, setMainImage] = useState("")
     const [cropNum, setCropNum] = useState(0)
-
+    const [mainField, setMainField] = useState()
 
 
     useEffect(() => {
@@ -62,14 +61,14 @@ export default function Camera(props) {
                 .then((json) => {
                     console.log(json)
                     setCropNum(json.number_of_slots);
-
-                    setMainImage(flask_url+json.main_image_path)
+                    setMainField(<Field cameraID={cameraID} name="Original Camera Input" image={flask_url + json.main_image_path} url={flask_url} className="field_main"/>);
                     const newfield = []
                     for(let i = 0; i < json.number_of_slots; i++){
                         newfield.push({
+                            cameraID:cameraID,
                             key:i+1,
-                            name: "Camera" + cameraID + "-slot-" + (i+1),
-                            image:flask_url+json.sub_image_path[i],
+                            name: "Camera-" + cameraID + "-slot-" + (i+1),
+                            image:flask_url + json.sub_image_path[i],
                             des:"detecting",
                         });
                     }
@@ -128,7 +127,7 @@ export default function Camera(props) {
             setField(newfield)}
     }, [cropNum, slotImage.length])*/
 
-  
+    
     const fieldElements = field?field.map(field => (
         <Field
             cameraID={field.cameraID}
@@ -144,7 +143,7 @@ export default function Camera(props) {
           //brand={field.brand} 
     return(
         <div>
-        <Field image={mainImage} name="input"  class="field_main"/>
+            {mainField}
             <br/>
             {cropNum !== 0 && <div className="detection_container">
                 {fieldElements}
