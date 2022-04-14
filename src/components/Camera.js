@@ -36,15 +36,20 @@ export default function Camera(props) {
         return {getImage};
     };
 
-    const url ='http://localhost:5000/'
-    const cameraID = "001"
-    const cameraUrl = url + "getCameraImage?cameraID="+cameraID
+    const socket_url = 'ws://localhost:4000/'
+    const flask_url = 'http://localhost:4000/'
+    const cameraID = "test"
+    const cameraUrl = flask_url + "getCameraImage?cameraID="+cameraID
     const [field, setField] = useState([])
     const [mainImage, setMainImage] = useState("")
     const [cropNum, setCropNum] = useState(0)
+
+
+
     useEffect(() => {
         getImage();
     },[])
+
 
     const getImage = () =>{
         fetch(cameraUrl,{
@@ -57,14 +62,13 @@ export default function Camera(props) {
                     console.log(json)
                     setCropNum(json.number_of_slots);
 
-                    setMainImage(url+json.main_image_path)
-                    
+                    setMainImage(flask_url+json.main_image_path)
                     const newfield = []
                     for(let i = 0; i < json.number_of_slots; i++){
                         newfield.push({
                             key:i+1,
                             name: "Camera" + cameraID + "-slot-" + (i+1),
-                            image:url+json.sub_image_path[i],
+                            image:flask_url+json.sub_image_path[i],
                             des:"detecting",
                         });
                     }
@@ -126,12 +130,13 @@ export default function Camera(props) {
   
     const fieldElements = field?field.map(field => (
         <Field
+            cameraID={field.cameraID}
             key={field.key}
             name={field.name}
             image={field.image}  
             des={field.des}
             logo={Logo()}
-            url= {url}
+            url= {flask_url}
         />
     )):<br/>
           //brand={field.brand} 

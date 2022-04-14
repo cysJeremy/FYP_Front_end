@@ -1,15 +1,36 @@
 import React from "react"
 import { useState } from "react";
 import { useEffect } from "react";
+import io from 'socket.io-client'
+
 export default function Field(props){
 
   const [brand, setBrand] = useState("")
   const [icon, setIcon] = useState("")
-  useEffect(()=>{
-    DetectImage(props.image)  
-  },[brand,icon])
+  const [image, setImage] = useState()
 
-  const DetectImage = (image) => {
+  useEffect(()=>{
+    UpdateField(props.image) //update Field Element using the image URL
+  },[])
+
+  const [updateCount, setUpdateCount] = useState(0)
+  const socket = io(props.url);
+  useEffect( () => {
+      socket.on('connect', function(){});
+      socket.on("CameraImageUpdated", (arg) => { 
+        setImage(image);
+        console.log(image);
+        UpdateField(props.image);
+          if (arg == props.cameraID)
+
+          {
+            console.print('haha');
+            UpdateField(props.image);
+          }
+      });
+  }, []);
+
+  const UpdateField = (image) => {
     
     return new Promise(async (resolve, reject) => {
       var formdata = new FormData();
@@ -44,7 +65,7 @@ export default function Field(props){
     <div>
       <fieldset disabled className = "field" >
           <legend>{props.name}</legend>
-          <img src = {props.image} className = "field_image"/>
+          <img src = {props.des?image:props.image} className = "field_image"/>
           <br />
           {props.des && <div className = "describe">
               <img src = {icon} className = "field_brand"/>
