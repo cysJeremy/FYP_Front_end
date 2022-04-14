@@ -23,15 +23,12 @@ export default function Field(props){
         //setImage(image);
         console.log(image);
         UpdateField(props.image);
-          if (arg == props.cameraID)
+          if (arg === props.cameraID)
           {
-            if(props.des){
               console.print('haha');
               UpdateField(props.image);
-            }else{
               setImage(props.image)
               console.log(image)
-            }
           }
       });
   }, []);
