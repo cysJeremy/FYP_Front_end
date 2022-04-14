@@ -27,7 +27,6 @@ export default function Field(props){
           {
               console.print('haha');
               UpdateField(props.image);
-              setImage(props.image)
               console.log(image)
           }
       });
@@ -40,6 +39,9 @@ export default function Field(props){
       let blob = await fetch(image).then(r => r.blob());
     formdata.append("image",blob);
 
+    setImage(URL.createObjectURL(blob));
+
+    console.log(image);
     fetch(props.url+"detectCarBrand", {
         method: 'POST',
         body: formdata,
@@ -68,7 +70,7 @@ export default function Field(props){
     <div>
       <fieldset disabled className = "field" >
           <legend>{props.name}</legend>
-          <img src = {(image === props.image ? image: props.image )} className = "field_image" alt= {props.name+"image"}/>
+          <img src = {image} className = "field_image" alt= {props.name+"image"}/>
           {props.des && <div className = "describe">
               <img src = {icon} className = "field_brand"/>
               <h4>{brand}</h4>

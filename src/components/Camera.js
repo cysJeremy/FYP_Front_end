@@ -39,7 +39,7 @@ export default function Camera(props) {
 
     const socket_url = 'ws://localhost:4000/'
     const flask_url = 'http://localhost:4000/'
-    const cameraID = "HKUST_001"
+    const cameraID = "test"
     const cameraUrl = flask_url + "getCameraImage?cameraID="+cameraID
     const [field, setField] = useState([])
     const [mainImage, setMainImage] = useState("")
