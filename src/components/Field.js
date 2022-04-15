@@ -8,7 +8,7 @@ export default function Field(props){
   const [brand, setBrand] = useState("")
   const [icon, setIcon] = useState("")
   const [image, setImage] = useState((props.image))
-
+  const [LP , setLP] = useState("")
   //Load Field Details upon initial rendering
   useEffect(()=>{
       UpdateField(props.image) //update Field Element using the image URL
@@ -61,6 +61,24 @@ export default function Field(props){
             }
       })
       .catch(error => console.log('error', error));  
+
+      fetch(props.url + "detectLP", {
+        method: 'POST',
+        body: formdata,
+        redirect: 'follow'
+      })
+      .then(response => response.text())
+      .then(response => {
+            const json = JSON.parse(response)
+            console.log(json)
+            if(json.licencePlate){
+              setLP(json.licencePlate)
+            }else{
+              setLP("can not recognite")
+            }
+
+      })
+      .catch(error => console.log('error', error));
     }
     })
   }
@@ -71,10 +89,14 @@ export default function Field(props){
       <fieldset disabled className = "field" >
           <legend>{props.name}</legend>
           <img src = {image} className = "field_image" alt= {props.name+"-image"}/>
-          {props.des && <div className = "describe">
-              <img src = {icon} className = "field_brand"/>
-              <h4>{brand}</h4>
-          </div>}
+          {props.des && <div className = "information">
+              <div className = "brand_detect">
+                <img src = {icon} className = "field_brand"/>
+                <h4>{brand}</h4>
+              </div>
+              <h4 className="field_LP">License Plate:{LP}</h4>
+          </div>
+          }
       </fieldset>
     </div>  
   )
