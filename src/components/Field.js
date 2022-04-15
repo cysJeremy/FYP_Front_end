@@ -70,7 +70,7 @@ export default function Field(props){
     <div>
       <fieldset disabled className = "field" >
           <legend>{props.name}</legend>
-          <img src = {image} className = "field_image" alt= {props.name+"image"}/>
+          <img src = {image} className = "field_image" alt= {props.name+"-image"}/>
           {props.des && <div className = "describe">
               <img src = {icon} className = "field_brand"/>
               <h4>{brand}</h4>
