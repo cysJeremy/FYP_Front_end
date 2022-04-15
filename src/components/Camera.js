@@ -1,4 +1,5 @@
-import React,{ useEffect, useState } from "react"
+import React,{ useEffect, useState, Fragment} from "react"
+import io from 'socket.io-client'
 import "./Camera.css"
 import Field from './Field'
 
@@ -44,8 +45,21 @@ export default function Camera(props) {
     const [field, setField] = useState([])
     const [cropNum, setCropNum] = useState(0)
     const [mainField, setMainField] = useState()
+    const [lastUpdateTime, setLastUpdateTime] = useState(Date().toLocaleString())
 
 
+    useEffect( () => {
+      const socket = io(flask_url);
+      socket.on('connect', function(){});
+      socket.on("CameraImageUpdated", (arg) => { 
+        //console.log(image);
+          if (arg === cameraID) //Message applies to all the fields of the same cameraID
+          {
+              setLastUpdateTime(Date().toLocaleString());
+              //console.log(image);
+          }
+      });
+  }, []);
     useEffect(() => {
         getImage();
     },[])
@@ -148,7 +162,10 @@ export default function Camera(props) {
             {cropNum !== 0 && <div className="detection_container">
                 {fieldElements}
             </div>}
+            <br/>
+            <Fragment>Last Updated: {lastUpdateTime}</Fragment>
         </div>
+
     )
 }
 
