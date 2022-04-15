@@ -59,10 +59,18 @@ export default function Camera(props) {
             })
                 .then(res => res.json())
                 .then((json) => {
-                    console.log(json)
+                    console.log(json);
                     setCropNum(json.number_of_slots);
-                    setMainField(<Field cameraID={cameraID} name="Original Camera Input" image={flask_url + json.main_image_path} url={flask_url} className="field_main"/>);
-                    const newfield = []
+
+                    setMainField(<Field 
+                        cameraID={cameraID} 
+                        name="Original Camera Input" 
+                        image={flask_url + json.main_image_path} 
+                        url={flask_url} 
+                        className="field_main"
+                        />);
+
+                    const newfield = [];
                     for(let i = 0; i < json.number_of_slots; i++){
                         newfield.push({
                             cameraID:cameraID,
@@ -72,8 +80,8 @@ export default function Camera(props) {
                             des:"detecting",
                         });
                     }
-                    console.log(newfield)
-                    setField(newfield)
+                    console.log(newfield);
+                    setField(newfield);
                 })
     }
     /*useEffect(() => {
