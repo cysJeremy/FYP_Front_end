@@ -83,12 +83,15 @@ export default function Field(props){
     })
   }
   
+  function changeAd(){
+    props.SetAd(props.Ad.getImage(brand));
+  }
 
   return(
     <div>
-      <fieldset disabled className = "field" >
+      <fieldset disabled className = {props.className} >
           <legend>{props.name}</legend>
-          <img src = {image} className = "field_image" alt= {props.name+"-image"}/>
+          <img src = {image} className = "field_image" alt= {props.name+"-image"} onClick={changeAd}/>
           {props.des && <div className = "information">
               <div className = "brand_detect">
                 <img src = {icon} className = "field_brand"/>

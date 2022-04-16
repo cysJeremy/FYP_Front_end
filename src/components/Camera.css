@@ -1,11 +1,8 @@
-#MainImage{
-    display: inline-block;
-    align-items: center;
-    width : 600px;
-    color: black;
-    padding: 2px;
+.advertisement_sample{
+    padding: 15px;
+    padding-bottom: 2px;
+    width: 90%;
 }
-
 .detection_container{
     display: grid;
     grid-template: auto auto / repeat(3, 1fr);

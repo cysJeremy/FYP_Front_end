@@ -1,8 +1,11 @@
 {
   "files": {
-    "main.css": "/static/css/main.351afe0a.css",
-    "main.js": "/static/js/main.82ced53b.js",
+    "main.css": "/static/css/main.3f8101b2.css",
+    "main.js": "/static/js/main.09c2d47c.js",
+    "static/media/food.jpg": "/static/media/food.7a27e0b3ecf6fccc27aa.jpg",
+    "static/media/watch.jpg": "/static/media/watch.fd55360136eb4333cc2c.jpg",
     "static/media/Nissan.png": "/static/media/Nissan.3024657c1f77296778ef.png",
+    "static/media/shoes.jpg": "/static/media/shoes.0ce59720bd185d75d86d.jpg",
     "static/media/Subaru.png": "/static/media/Subaru.55e24a29c9f131f506f9.png",
     "static/media/Porsche.png": "/static/media/Porsche.37163d29f9e523b3d93d.png",
     "static/media/LandRover.png": "/static/media/LandRover.6beab5d4013f1c938d62.png",
@@ -11,6 +14,7 @@
     "static/media/Kia.png": "/static/media/Kia.59a50cb9061b3718337f.png",
     "static/media/Benz.png": "/static/media/Benz.b1bf0a72f28196bbbe21.png",
     "static/media/BMW.png": "/static/media/BMW.5c5cabc0bc329b833bf7.png",
+    "static/media/Clothing.jpg": "/static/media/Clothing.582c5f332152473adc8f.jpg",
     "static/media/Honda.png": "/static/media/Honda.d33f7a3c6e7f866abb1e.png",
     "static/media/Infiniti.png": "/static/media/Infiniti.dc4036353958406aea3c.png",
     "static/media/Hyundai.jpg": "/static/media/Hyundai.90412ead5ecab4e3b692.jpg",
@@ -23,11 +27,11 @@
     "static/media/Mini.png": "/static/media/Mini.19eff9069ec222699316.png",
     "static/media/Suzuki.png": "/static/media/Suzuki.09f664332210019bdcd2.png",
     "index.html": "/index.html",
-    "main.351afe0a.css.map": "/static/css/main.351afe0a.css.map",
-    "main.82ced53b.js.map": "/static/js/main.82ced53b.js.map"
+    "main.3f8101b2.css.map": "/static/css/main.3f8101b2.css.map",
+    "main.09c2d47c.js.map": "/static/js/main.09c2d47c.js.map"
   },
   "entrypoints": [
-    "static/css/main.351afe0a.css",
-    "static/js/main.82ced53b.js"
+    "static/css/main.3f8101b2.css",
+    "static/js/main.09c2d47c.js"
   ]
 }

@@ -38,6 +38,43 @@ export default function Camera(props) {
         return {getImage};
     };
 
+    const Ad = function(){
+        const cloth = require("../ad/Clothing.jpg")
+        const food = require("../ad/food.jpg")
+        const shoes = require("../ad/shoes.jpg")
+        const watch = require("../ad/watch.jpg")
+        const ad = {
+            audi: cloth,
+            benz: watch,
+            bmw: watch,
+            honda: food,
+            hyundai: food,
+            infiniti: cloth,
+            kia: cloth,
+            landrover: shoes,
+            lexus: cloth,
+            mini: food,
+            mazda: shoes,
+            mitsubishi: cloth,
+            nissan: shoes,
+            porsche: watch,
+            subaru: food,
+            suzuki: cloth,
+            tesla: watch,
+            toyota: cloth,
+            volkswagen: cloth,
+            volvo: food
+        };
+        
+        const getImage = function(name){
+            let brand = name.toLowerCase();
+            if(brand in ad)
+                return ad[brand];
+            return require("../logo/Not_result.png");
+        };
+        
+        return {getImage};
+    };
     const socket_url = 'ws://localhost:4000/'
     const flask_url = 'http://localhost:4000/'
     const cameraID = "HKUST_001"
@@ -46,6 +83,7 @@ export default function Camera(props) {
     const [cropNum, setCropNum] = useState(0)
     const [mainField, setMainField] = useState()
     const [lastUpdateTime, setLastUpdateTime] = useState(Date().toLocaleString())
+    const [ad, setAd] = useState(Ad().getImage("bmw"))
 
 
     useEffect( () => {
@@ -160,17 +198,26 @@ export default function Camera(props) {
             logo={Logo()}
             url= {flask_url}
             class = "field_slot"
+            Ad = {Ad()}
+            SetAd = {setAd}
         />
     )):<br/>
           //brand={field.brand} 
     return(
-        <div>
+        <div className="Camera">
             {mainField}
             <br/>
             {cropNum !== 0 && <div className="detection_container">
                 {fieldElements}
-            </div>}
+                <br/>
+            </div>
+            }
+            <div>
+            <img src={ad} className="advertisement_sample"></img>
+            </div>
             <br/>
+            
+            
             <Fragment>Last Updated: {lastUpdateTime}</Fragment>
         </div>
 
