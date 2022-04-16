@@ -84,7 +84,7 @@ export default function Camera(props) {
     const [mainField, setMainField] = useState()
     const [lastUpdateTime, setLastUpdateTime] = useState(Date().toLocaleString())
     const [ad, setAd] = useState(Ad().getImage("bmw"))
-
+    const [adViewer, setAdViewer] = useState();
 
     useEffect( () => {
       const socket = io(flask_url);
@@ -131,6 +131,9 @@ export default function Camera(props) {
                             image:flask_url + json.sub_image_path[i],
                             des:"detecting",
                         });
+                    }
+                    if(json.number_of_slots > 0){
+                        setAdViewer("Camera-" + cameraID + "-slot-1");
                     }
                     console.log(newfield);
                     setField(newfield);
@@ -200,6 +203,8 @@ export default function Camera(props) {
             class = "field_slot"
             Ad = {Ad()}
             SetAd = {setAd}
+            AdViewer = {adViewer}
+            SetAdViewer = {setAdViewer}
         />
     )):<br/>
           //brand={field.brand} 

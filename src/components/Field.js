@@ -11,7 +11,7 @@ export default function Field(props){
   const [LP , setLP] = useState("")
   //Load Field Details upon initial rendering
   useEffect(()=>{
-      UpdateField(props.image) //update Field Element using the image URL
+      UpdateField(props.image) //update Field Element using the image URL  
   },[])
 
   //Socket.IO listener for auto-updating
@@ -51,9 +51,12 @@ export default function Field(props){
             const json = JSON.parse(response)
             console.log(json)
             if (Array.isArray(json) && json.length > 0) {
-                console.log(json[0].name)
+                //console.log(json[0].name)
                 setBrand(json[0].name);
                 setIcon(props.logo.getImage(json[0].name))
+                if(props.AdViewer === props.name){
+                  props.SetAd(props.Ad.getImage(json[0].name));
+                }
             }
             else{
                 setBrand("");
@@ -70,7 +73,7 @@ export default function Field(props){
       .then(response => response.text())
       .then(response => {
             const json = JSON.parse(response)
-            console.log(json)
+            //console.log(json)
             if(json.licencePlate){
               setLP(json.licencePlate)
             }else{
@@ -85,6 +88,7 @@ export default function Field(props){
   
   function changeAd(){
     props.SetAd(props.Ad.getImage(brand));
+    props.SetAdViewer(props.name)
   }
 
   return(
