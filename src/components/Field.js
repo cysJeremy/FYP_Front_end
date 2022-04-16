@@ -13,7 +13,7 @@ export default function Field(props){
   useEffect(()=>{
       UpdateField(props.image) //update Field Element using the image URL  
   },[])
-
+  
   //Socket.IO listener for auto-updating
   useEffect( () => {
       //console.log('add camera ', props.cameraID);
@@ -55,7 +55,7 @@ export default function Field(props){
                 setBrand(json[0].name);
                 setIcon(props.logo.getImage(json[0].name))
                 if(props.AdViewer === props.name){
-                  props.SetAd(props.Ad.getImage(json[0].name));
+                  props.SetAd(props.Ad.getImage(brand));
                 }
             }
             else{

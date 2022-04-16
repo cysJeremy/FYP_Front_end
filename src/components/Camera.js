@@ -2,6 +2,7 @@ import React,{ useEffect, useState, Fragment} from "react"
 import io from 'socket.io-client'
 import "./Camera.css"
 import Field from './Field'
+import NewWindow from 'react-new-window'
 
 export default function Camera(props) {
     const Logo = function(){
@@ -38,11 +39,21 @@ export default function Camera(props) {
         return {getImage};
     };
 
+    
+    const socket_url = 'ws://localhost:4000/'
+    const flask_url = 'http://localhost:4000/'
+    const cameraID = "HKUST_001"
+    const cameraUrl = flask_url + "getCameraImage?cameraID="+cameraID
+    const [field, setField] = React.useState()
+    const [cropNum, setCropNum] = useState(0)
+    const [mainField, setMainField] = useState()
+    const [lastUpdateTime, setLastUpdateTime] = useState(Date().toLocaleString())
+    
     const Ad = function(){
-        const cloth = require("../ad/Clothing.jpg")
-        const food = require("../ad/food.jpg")
-        const shoes = require("../ad/shoes.jpg")
-        const watch = require("../ad/watch.jpg")
+        const cloth = "Clothing.jpg"
+        const food = "food.jpg"
+        const shoes = "shoes.jpg"
+        const watch = "watch.jpg"
         const ad = {
             audi: cloth,
             benz: watch,
@@ -69,22 +80,16 @@ export default function Camera(props) {
         const getImage = function(name){
             let brand = name.toLowerCase();
             if(brand in ad)
-                return ad[brand];
-            return require("../logo/Not_result.png");
+                return flask_url+"static/ad/"+ad[brand];
+            return flask_url+"static/ad/"+"Not_result.png";
         };
         
         return {getImage};
     };
-    const socket_url = 'ws://localhost:4000/'
-    const flask_url = 'http://localhost:4000/'
-    const cameraID = "HKUST_001"
-    const cameraUrl = flask_url + "getCameraImage?cameraID="+cameraID
-    const [field, setField] = useState([])
-    const [cropNum, setCropNum] = useState(0)
-    const [mainField, setMainField] = useState()
-    const [lastUpdateTime, setLastUpdateTime] = useState(Date().toLocaleString())
+
     const [ad, setAd] = useState(Ad().getImage("bmw"))
     const [adViewer, setAdViewer] = useState();
+
 
     useEffect( () => {
       const socket = io(flask_url);
@@ -217,9 +222,10 @@ export default function Camera(props) {
                 <br/>
             </div>
             }
-            <div>
-            <img src={ad} className="advertisement_sample"></img>
-            </div>
+            <NewWindow title="advertisement">
+                <img src={ad} alt="test" className="advertisement_sample"/>
+            </NewWindow>
+            
             <br/>
             
             
