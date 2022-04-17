@@ -217,9 +217,7 @@ export default function Camera(props) {
                 <br/>
             </div>
             }
-            <div>
-            <img src={ad} className="advertisement_sample"></img>
-            </div>
+            
             <br/>
             
             
@@ -229,4 +227,6 @@ export default function Camera(props) {
     )
 }
 
-/**/
+/*<div>
+            <img src={ad} className="advertisement_sample"></img>
+            </div>*/
