@@ -22,15 +22,16 @@ export default function App() {
     //
     
     const queryParams = new URLSearchParams(window.location.search)
+    const cameraID = queryParams.get("cameraID")
     const slot = queryParams.get("slot")
     return (
         <main>
             {slot?
-            <Advert slot={slot}/>
+            <Advert slot={slot} cameraID={cameraID} />
             :
             <div>
                 <Header />
-                <Camera className="Camera"/>
+                <Camera className="Camera" cameraID={cameraID} />
             </div>}
         </main>
     );

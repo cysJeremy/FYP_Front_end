@@ -2,8 +2,8 @@ import React from "react"
 import { useState } from "react";
 import { useEffect } from "react";
 import io from 'socket.io-client'
-import "./Field.css"
-export default function Field(props){
+import "./slot.css"
+export default function Slot(props){
 
   const [brand, setBrand] = useState("")
   const [icon, setIcon] = useState("")

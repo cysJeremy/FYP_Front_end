@@ -43,7 +43,8 @@ export default function Advert(props){
     };
 
     const flask_url = 'http://localhost:4000/'
-    const cameraID = "HKUST_001"
+    let cameraID
+    (props.cameraID? cameraID = props.cameraID:cameraID = "HKUST_001")
     const cameraUrl = flask_url + "getCameraImage?cameraID="+cameraID
     const [cropNum, setCropNum] = useState(0)
     const [ad, setAd] = useState(Ad().getImage("bmw"))

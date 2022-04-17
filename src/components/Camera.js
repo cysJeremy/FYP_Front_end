@@ -1,7 +1,7 @@
 import React,{ useEffect, useState, Fragment} from "react"
 import io from 'socket.io-client'
 import "./Camera.css"
-import Field from './Field'
+import Slot from './slot'
 
 export default function Camera(props) {
     const Logo = function(){
@@ -77,7 +77,8 @@ export default function Camera(props) {
     };
     const socket_url = 'ws://localhost:4000/'
     const flask_url = 'http://localhost:4000/'
-    const cameraID = "HKUST_001"
+    let cameraID
+    (props.cameraID? cameraID = props.cameraID:cameraID = "HKUST_001")
     const cameraUrl = flask_url + "getCameraImage?cameraID="+cameraID
     const [field, setField] = useState([])
     const [cropNum, setCropNum] = useState(0)
@@ -114,7 +115,7 @@ export default function Camera(props) {
                     console.log(json);
                     setCropNum(json.number_of_slots);
 
-                    setMainField(<Field 
+                    setMainField(<Slot 
                         cameraID={cameraID} 
                         name="Original Camera Input" 
                         image={flask_url + json.main_image_path} 
@@ -192,7 +193,7 @@ export default function Camera(props) {
 
     
     const fieldElements = field?field.map(field => (
-        <Field
+        <Slot
             cameraID={field.cameraID}
             key={field.key}
             name={field.name}
