@@ -122,13 +122,15 @@ export default function Camera(props) {
                         url={flask_url} 
                         className="field_main"
                         />);
-
+                        let name;
                     const newfield = [];
                     for(let i = 0; i < json.number_of_slots; i++){
+                        name = json.sub_image_path[i].split("/")
+                        name = name[name.length-1].replace(cameraID+"_", "").replace(".jpg","")
                         newfield.push({
                             cameraID:cameraID,
                             key:i+1,
-                            name: "Camera-" + cameraID + "-slot-" + (i+1),
+                            name: "Camera-" + cameraID +"-slot-"+ name,
                             image:flask_url + json.sub_image_path[i],
                             des:"detecting",
                         });
