@@ -51,7 +51,7 @@ export default function Slot(props){
             const json = JSON.parse(response)
             console.log(json)
             if (Array.isArray(json) && json.length > 0) {
-                //console.log(json[0].name)
+                console.log(json[0].name)
                 setBrand(json[0].name);
                 setIcon(props.logo.getImage(json[0].name))
                 if(props.AdViewer === props.name){
@@ -73,7 +73,7 @@ export default function Slot(props){
       .then(response => response.text())
       .then(response => {
             const json = JSON.parse(response)
-            //console.log(json)
+            console.log(json)
             if(json.licencePlate){
               setLP(json.licencePlate)
             }else{

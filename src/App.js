@@ -24,6 +24,12 @@ export default function App() {
     const queryParams = new URLSearchParams(window.location.search)
     const cameraID = queryParams.get("cameraID")
     const slot = queryParams.get("slot")
+    let CameraField
+    if(cameraID){
+        CameraField = cameraID.split(",").map(id =>(<Camera className = "Camera" cameraID={id}/>))
+    }else{
+        CameraField = (<Camera className="Camera" cameraID={cameraID} />)
+    }
     return (
         <main>
             {slot?
@@ -31,7 +37,7 @@ export default function App() {
             :
             <div>
                 <Header />
-                <Camera className="Camera" cameraID={cameraID} />
+                {CameraField}
             </div>}
         </main>
     );
