@@ -123,10 +123,10 @@ export default function Advert(props){
     }
     return(
         <div>
-        {(cropNum > 0)?
+        {(cropNum > 0 && props.slot<=cropNum)?
             <img src={ad} className="advertisement_page"/>
             :
-        <h3>no slot info is received.</h3>}
+        <h3>NO SLOT FOUND</h3>}
         </div>
     )
 } 
