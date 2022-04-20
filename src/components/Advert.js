@@ -45,11 +45,11 @@ export default function Advert(props){
     const flask_url = 'http://localhost:4000/'
     let cameraID
     (props.cameraID? cameraID = props.cameraID:cameraID = "HKUST_001")
-    const cameraUrl = flask_url + "getCameraImage?cameraID="+cameraID
+    const cameraUrl = flask_url + "getCameraProperties?cameraID="+cameraID
     const [cropNum, setCropNum] = useState(0)
     const [ad, setAd] = useState(Ad().getImage("bmw"))
     const [adViewer, setAdViewer] = useState();
-
+    const [LP, setLP] = useState(false);
     useEffect(() => {
         getSlot();
     },[])
@@ -118,13 +118,35 @@ export default function Advert(props){
             }
         })
         .catch(error => console.log('error', error));  
+
+        fetch(flask_url + "detectLP", {
+            method: 'POST',
+            body: formdata,
+            redirect: 'follow'
+          })
+          .then(response => response.text())
+          .then(response => {
+                console.log(response)
+                const json = JSON.parse(response)
+                if(json.licencePlate){
+                  setLP(json.licencePlate)
+                }else{
+                  setLP("can not recognite")
+                }
+    
+          })
+          .catch(error => console.log('error', error));
+        
         
     })
     }
     return(
         <div>
         {(cropNum > 0 && props.slot<=cropNum)?
-            <img src={ad} className="advertisement_page"/>
+            <div>
+                {(LP !== false && LP != "NO LP") && <h3>Welcome! The driver of {LP}</h3>}
+                <img src={ad} className="advertisement_page"/>
+            </div>
             :
         <h3>NO SLOT FOUND</h3>}
         </div>
