@@ -46,9 +46,9 @@ export default function Advert(props){
     let cameraID
     (props.cameraID? cameraID = props.cameraID:cameraID = "HKUST_001")
     const cameraUrl = flask_url + "getCameraProperties?cameraID="+cameraID
-    const [cropNum, setCropNum] = useState(0)
+    const cropNum = React.useRef(0)
     const [ad, setAd] = useState(Ad().getImage("bmw"))
-    const [adViewer, setAdViewer] = useState("");
+    const adViewer = React.useRef("");
     const [LP, setLP] = useState(false);
     useEffect(() => {
         getSlot();
@@ -63,13 +63,13 @@ export default function Advert(props){
                 .then(res => res.json())
                 .then((json) => {
                     console.log(json);
-                    setCropNum(json.number_of_slots);
+                    cropNum.num = json.number_of_slots;
                     if(json.number_of_slots > 0 && props.slot <= json.number_of_slots){
                         const image_url = flask_url + json.sub_image_path[props.slot-1];
-                        setAdViewer(image_url)
-                        console.log(image_url)
-                        console.log(adViewer)
-                        UpdateImage(image_url,json.number_of_slots)
+                        adViewer.image = image_url;
+                        console.log(image_url);
+                        console.log(adViewer.image);
+                        UpdateImage(image_url,json.number_of_slots);
                     }
                 })
     }
@@ -83,16 +83,17 @@ export default function Advert(props){
         const socket = io(flask_url);
         socket.on('connect', function(){});
         socket.on("CameraImageUpdated", (arg) => { 
-            console.log(adViewer);
-            if (arg === cameraID && adViewer) //Message applies to all the fields of the same cameraID
+            console.log(adViewer.image);
+            if (arg === cameraID && adViewer.image) //Message applies to all the fields of the same cameraID
             {
-                UpdateImage(adViewer,cropNum);
-                console.log(adViewer);
+                UpdateImage(adViewer.image,cropNum.num);
+                console.log(adViewer.image);
             }
         });
-    }, [adViewer]);
+    }, []);
     const UpdateImage = (image,num) => {
         if(props.slot > num){
+            console.log("not slot")
             return;
         }
         return new Promise(async (resolve, reject) => {
@@ -144,7 +145,7 @@ export default function Advert(props){
     }
     return(
         <div>
-        {(cropNum > 0 && props.slot<=cropNum)?
+        {(cropNum.num  > 0 && props.slot<=cropNum.num )?
             <div>
                 {(LP !== false && LP != "NO LP") && <h3>Welcome! LicencePlate number: {LP}</h3>}
                 <img src={ad} className="advertisement_page"/>
