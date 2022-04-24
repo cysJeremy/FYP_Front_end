@@ -41,7 +41,7 @@ export default function Slot(props){
     setImage(URL.createObjectURL(blob));
     if(props.des)
     {
-        fetch(props.url + "detectCarBrand", {
+        fetch(props.url + "detectMake", {
         method: 'POST',
         body: formdata,
         redirect: 'follow'

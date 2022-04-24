@@ -48,7 +48,7 @@ export default function Advert(props){
     const cameraUrl = flask_url + "getCameraProperties?cameraID="+cameraID
     const [cropNum, setCropNum] = useState(0)
     const [ad, setAd] = useState(Ad().getImage("bmw"))
-    const [adViewer, setAdViewer] = useState();
+    const [adViewer, setAdViewer] = useState("");
     const [LP, setLP] = useState(false);
     useEffect(() => {
         getSlot();
@@ -65,9 +65,11 @@ export default function Advert(props){
                     console.log(json);
                     setCropNum(json.number_of_slots);
                     if(json.number_of_slots > 0 && props.slot <= json.number_of_slots){
-                        setAdViewer(flask_url + json.sub_image_path[props.slot-1])
-                        console.log(flask_url + json.sub_image_path[props.slot-1])
-                        UpdateImage(flask_url + json.sub_image_path[props.slot-1],json.number_of_slots)
+                        const image_url = flask_url + json.sub_image_path[props.slot-1];
+                        setAdViewer(image_url)
+                        console.log(image_url)
+                        console.log(adViewer)
+                        UpdateImage(image_url,json.number_of_slots)
                     }
                 })
     }
@@ -81,14 +83,14 @@ export default function Advert(props){
         const socket = io(flask_url);
         socket.on('connect', function(){});
         socket.on("CameraImageUpdated", (arg) => { 
-            //console.log(image);
-            if (arg === cameraID) //Message applies to all the fields of the same cameraID
+            console.log(adViewer);
+            if (arg === cameraID && adViewer) //Message applies to all the fields of the same cameraID
             {
                 UpdateImage(adViewer,cropNum);
-                //console.log(image);
+                console.log(adViewer);
             }
         });
-    }, []);
+    }, [adViewer]);
     const UpdateImage = (image,num) => {
         if(props.slot > num){
             return;
@@ -99,7 +101,7 @@ export default function Advert(props){
         formdata.append("image",blob);
         console.log(image)
         //set the image of field
-        fetch(flask_url + "detectCarBrand", {
+        fetch(flask_url + "detectMake", {
         method: 'POST',
         body: formdata,
         redirect: 'follow'
@@ -126,8 +128,9 @@ export default function Advert(props){
           })
           .then(response => response.text())
           .then(response => {
-                console.log(response)
+                
                 const json = JSON.parse(response)
+                console.log(json)
                 if(json.licencePlate){
                   setLP(json.licencePlate)
                 }else{
@@ -137,14 +140,13 @@ export default function Advert(props){
           })
           .catch(error => console.log('error', error));
         
-        
     })
     }
     return(
         <div>
         {(cropNum > 0 && props.slot<=cropNum)?
             <div>
-                {(LP !== false && LP != "NO LP") && <h3>Welcome! The driver of {LP}</h3>}
+                {(LP !== false && LP != "NO LP") && <h3>Welcome! LicencePlate number: {LP}</h3>}
                 <img src={ad} className="advertisement_page"/>
             </div>
             :
