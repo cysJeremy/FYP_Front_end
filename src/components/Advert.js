@@ -1,34 +1,34 @@
-import React,{ useEffect, useState, Fragment} from "react"
+import React,{ useEffect, useState} from "react"
 import io from 'socket.io-client'
 import './Advert.css'
 
 export default function Advert(props){
     const Ad = function(){
-        const cloth = require("../ad/Clothing.jpg")
+        /*const cloth = require("../ad/Clothing.jpg")
         const food = require("../ad/food.jpg")
         const shoes = require("../ad/shoes.jpg")
-        const watch = require("../ad/watch.jpg")
+        const watch = require("../ad/watch.jpg")*/
         const ad = {
-            audi: cloth,
-            benz: watch,
-            bmw: watch,
-            honda: food,
-            hyundai: food,
-            infiniti: cloth,
-            kia: cloth,
-            landrover: shoes,
-            lexus: cloth,
-            mini: food,
-            mazda: shoes,
-            mitsubishi: cloth,
-            nissan: shoes,
-            porsche: watch,
-            subaru: food,
-            suzuki: cloth,
-            tesla: watch,
-            toyota: cloth,
-            volkswagen: cloth,
-            volvo: food
+            audi: require("../ad/Audi_ad.jpg"),
+            benz: require("../ad/Benz_ad.jpg"),
+            bmw: require("../ad/Bmw_ad.jpg"),
+            honda: require("../ad/Honda_ad.jpg"),
+            hyundai: require("../ad/Hyundai_ad.jpg"),
+            infiniti: require("../ad/Infiniti_ad.jpg"),
+            kia: require("../ad/Kia_ad.jpg"),
+            landrover: require("../ad/LandRover_ad.jpg"),
+            lexus: require("../ad/Lexus_ad.jpg"),
+            mini: require("../ad/Mini_ad.jpg"),
+            mazda: require("../ad/Mazda_ad.jpg"),
+            mitsubishi: require("../ad/Mitsubishi_ad.jpg"),
+            nissan: require("../ad/Nissan_ad.jpg"),
+            porsche: require("../ad/Porsche_ad.jpg"),
+            subaru: require("../ad/Subaru_ad.jpg"),
+            suzuki: require("../ad/Suzuki_ad.jpg"),
+            tesla: require("../ad/Tesla_ad.jpg"),
+            toyota: require("../ad/Toyota_ad.jpg"),
+            volkswagen: require("../ad/Volkswagen_ad.jpg"),
+            volvo: require("../ad/Volvo_ad.jpg")
         };
         
         const getImage = function(name){
