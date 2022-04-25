@@ -146,7 +146,7 @@ export default function Advert(props){
         <div>
         {(adViewer.image )?
             <div>
-                <h3>Welcome! {(LP !== false && LP !== "NO LP") && ("LicencePlate number:" + LP)} </h3>
+                <h3>Welcome! {(LP !== false && LP !== "NO LP") && ("The driver of " + LP)} </h3>
                 <img src={ad} className="advertisement_page"/>
             </div>
             :
