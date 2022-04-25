@@ -23,7 +23,7 @@ export default function App() {
     
     const queryParams = new URLSearchParams(window.location.search)
     const cameraID = queryParams.get("cameraID")
-    const slot = queryParams.get("slot")
+    const slotID = queryParams.get("slotID")
     let CameraField
     if(cameraID){
         CameraField = cameraID.split(",").map(id =>(<Camera className = "Camera" cameraID={id}/>))
@@ -32,8 +32,8 @@ export default function App() {
     }
     return (
         <main>
-            {slot?
-            <Advert slot={slot} cameraID={cameraID} />
+            {slotID?
+            <Advert slotID={slotID} cameraID={cameraID} />
             :
             <div>
                 <Header />

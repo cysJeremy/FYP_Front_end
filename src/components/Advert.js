@@ -78,8 +78,8 @@ export default function Advert(props){
                         console.log(adViewer.image);
                         UpdateImage(image_url,json.number_of_slots);
                     }*/
-                    if(props.slot in slotIds){
-                        adViewer.image = slotIds[props.slot];
+                    if(props.slotID in slotIds){
+                        adViewer.image = slotIds[props.slotID];
                         console.log(adViewer.image);
                         UpdateImage(adViewer.image);
                     }
