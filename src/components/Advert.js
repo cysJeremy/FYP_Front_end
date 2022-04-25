@@ -147,7 +147,7 @@ export default function Advert(props){
                 if(json.licencePlate){
                   setLP(json.licencePlate)
                 }else{
-                  setLP("can not recognite")
+                  setLP("NO LP")
                 }
     
           })
@@ -159,7 +159,7 @@ export default function Advert(props){
         <div>
         {(adViewer.image )?
             <div>
-                {(LP !== false && LP != "NO LP") && <h3>Welcome! LicencePlate number: {LP}</h3>}
+                <h3>Welcome! {(LP !== false && LP != "NO LP") && ("LicencePlate number:" + LP)} </h3>
                 <img src={ad} className="advertisement_page"/>
             </div>
             :

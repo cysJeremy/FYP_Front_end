@@ -1,3 +1,4 @@
+import { capitalize } from "@material-ui/core";
 import React from "react"
 import { useState } from "react";
 import { useEffect } from "react";
@@ -52,7 +53,9 @@ export default function Slot(props){
             console.log(json)
             if (Array.isArray(json) && json.length > 0) {
                 console.log(json[0].name)
-                setBrand(json[0].name);
+                const brandToUpperCase = json[0].name.charAt(0).toUpperCase() 
+                + json[0].name.slice(1); 
+                setBrand(brandToUpperCase);
                 setIcon(props.logo.getImage(json[0].name))
                 if(props.AdViewer === props.name){
                   props.SetAd(props.Ad.getImage(json[0].name));
