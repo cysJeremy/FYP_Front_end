@@ -38,43 +38,6 @@ export default function Camera(props) {
         return {getImage};
     };
 
-    const Ad = function(){
-        const cloth = require("../ad/Clothing.jpg")
-        const food = require("../ad/food.jpg")
-        const shoes = require("../ad/shoes.jpg")
-        const watch = require("../ad/watch.jpg")
-        const ad = {
-            audi: cloth,
-            benz: watch,
-            bmw: watch,
-            honda: food,
-            hyundai: food,
-            infiniti: cloth,
-            kia: cloth,
-            landrover: shoes,
-            lexus: cloth,
-            mini: food,
-            mazda: shoes,
-            mitsubishi: cloth,
-            nissan: shoes,
-            porsche: watch,
-            subaru: food,
-            suzuki: cloth,
-            tesla: watch,
-            toyota: cloth,
-            volkswagen: cloth,
-            volvo: food
-        };
-        
-        const getImage = function(name){
-            let brand = name.toLowerCase();
-            if(brand in ad)
-                return ad[brand];
-            return require("../logo/Not_result.png");
-        };
-        
-        return {getImage};
-    };
     const socket_url = 'ws://localhost:4000/'
     const flask_url = 'http://localhost:4000/'
     let cameraID
@@ -84,8 +47,6 @@ export default function Camera(props) {
     const [cropNum, setCropNum] = useState(0)
     const [mainField, setMainField] = useState()
     const [lastUpdateTime, setLastUpdateTime] = useState(Date().toLocaleString())
-    const [ad, setAd] = useState(Ad().getImage("bmw"))
-    const [adViewer, setAdViewer] = useState();
 
     useEffect( () => {
       const socket = io(flask_url);
@@ -98,7 +59,8 @@ export default function Camera(props) {
               //console.log(image);
           }
       });
-  }, []);
+    }, []);
+
     useEffect(() => {
         getImage();
     },[])
@@ -112,7 +74,7 @@ export default function Camera(props) {
             })
                 .then(res => res.json())
                 .then((json) => {
-                    console.log(json);
+                    //console.log(json);
                     setCropNum(json.number_of_slots);
 
                     setMainField(<Slot 
@@ -135,65 +97,11 @@ export default function Camera(props) {
                             des:"detecting",
                         });
                     }
-                    if(json.number_of_slots > 0){
-                        setAdViewer("Camera-" + cameraID + "-slot-1");
-                    }
-                    console.log(newfield);
+                    //console.log(newfield);
                     setField(newfield);
                 })
     }
-    /*useEffect(() => {
-        if(mainImage != "")
-            CropImage()
-    }, [mainImage])
-    console.log(cropNum,mainImage)
-    const CropImage = () => {
-     
-      return new Promise(async (resolve, reject) => {
-        var formdata = new FormData();
-        let blob = await fetch(mainImage).then(r => r.blob());
-      formdata.append("image",blob);
-  
-    fetch("http://localhost:5000/updateCameraImage?cameraID=001", {
-        method: 'POST',
-        body: formdata,
-        redirect: 'follow'
-    })
-      .then(response => response.text())
-      .then(response => {
-            const json = JSON.parse(response)
-            console.log(json)
-            if (Array.isArray(json) && json.length > 0) {
-              setBrandID(json[0].class)
-            }
-            else{
-              setBrandID("")
-            }
-      })
-      .catch(error => console.log('error', error));
-      })
-    }*/
-    //const [brand, setBrand] = useState("")
-    
-    /*useEffect(() => {
-        if(cropNum != 0 && slotImage.length == cropNum)
-            {const newfield = []
-            for(let i = 0; i < cropNum; i++){
-                console.log(slotImage[i])
-                DetectImage(slotImage[i])
-                
-                newfield.push({
-                    key:i+1,
-                    name: "Camera" + cameraID + "-slot-" + (i+1),
-                    image: slotImage[i],
-                    des:brand,
-                    brand:Logo().getImage(brand)
-                })
-            }
-            setField(newfield)}
-    }, [cropNum, slotImage.length])*/
 
-    
     const fieldElements = field?field.map(field => (
         <Slot
             cameraID={field.cameraID}
@@ -204,10 +112,6 @@ export default function Camera(props) {
             logo={Logo()}
             url= {flask_url}
             class = "field_slot"
-            Ad = {Ad()}
-            SetAd = {setAd}
-            AdViewer = {adViewer}
-            SetAdViewer = {setAdViewer}
         />
     )):<br/>
           //brand={field.brand} 

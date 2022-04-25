@@ -1,4 +1,3 @@
-import { capitalize } from "@material-ui/core";
 import React from "react"
 import { useState } from "react";
 import { useEffect } from "react";
@@ -50,16 +49,13 @@ export default function Slot(props){
       .then(response => response.text())
       .then(response => {
             const json = JSON.parse(response)
-            console.log(json)
+            //console.log(json)
             if (Array.isArray(json) && json.length > 0) {
-                console.log(json[0].name)
+                //console.log(json[0].name)
                 const brandToUpperCase = json[0].name.charAt(0).toUpperCase() 
                 + json[0].name.slice(1); 
                 setBrand(brandToUpperCase);
                 setIcon(props.logo.getImage(json[0].name))
-                if(props.AdViewer === props.name){
-                  props.SetAd(props.Ad.getImage(json[0].name));
-                }
             }
             else{
                 setBrand("");
@@ -76,7 +72,7 @@ export default function Slot(props){
       .then(response => response.text())
       .then(response => {
             const json = JSON.parse(response)
-            console.log(json)
+            //console.log(json)
             if(json.licencePlate){
               setLP(json.licencePlate)
             }else{
@@ -88,17 +84,12 @@ export default function Slot(props){
     }
     })
   }
-  
-  function changeAd(){
-    props.SetAd(props.Ad.getImage(brand));
-    props.SetAdViewer(props.name)
-  }
 
   return(
     <div>
       <fieldset disabled className = {props.className} >
           <legend>{props.name}</legend>
-          <img src = {image} className = "field_image" alt= {props.name+"-image"} onClick={changeAd}/>
+          <img src = {image} className = "field_image" alt= {props.name+"-image"}/>
           {props.des && <div className = "information">
               <div className = "brand_detect">
                 <img src = {icon} className = "field_brand"/>

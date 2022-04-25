@@ -46,10 +46,10 @@ export default function Advert(props){
     let cameraID
     (props.cameraID? cameraID = props.cameraID:cameraID = "HKUST_001")
     const cameraUrl = flask_url + "getCameraProperties?cameraID="+cameraID
-    //const cropNum = React.useRef(0)
     const [ad, setAd] = useState(Ad().getImage("bmw"))
     const adViewer = React.useRef("");
     const [LP, setLP] = useState(false);
+    
     useEffect(() => {
         getSlot();
     },[])
@@ -62,8 +62,7 @@ export default function Advert(props){
             })
                 .then(res => res.json())
                 .then((json) => {
-                    console.log(json);
-                    //cropNum.num = json.number_of_slots;
+                    //console.log(json);
                     const slotIds = [];
                     let name;
                     for(let i = 0; i < json.number_of_slots; i++){
@@ -71,35 +70,24 @@ export default function Advert(props){
                         name = name[name.length-1].replace(cameraID+"_", "").replace(".jpg","")
                         slotIds[name] = flask_url + json.sub_image_path[i]
                     }
-                    /*if(json.number_of_slots > 0 && props.slot <= json.number_of_slots){
-                        const image_url = flask_url + json.sub_image_path[props.slot-1];
-                        adViewer.image = image_url;
-                        console.log(image_url);
-                        console.log(adViewer.image);
-                        UpdateImage(image_url,json.number_of_slots);
-                    }*/
                     if(props.slotID in slotIds){
                         adViewer.image = slotIds[props.slotID];
-                        console.log(adViewer.image);
+                        //console.log(adViewer.image);
                         UpdateImage(adViewer.image);
                     }
                 })
     }
    
-    /*useEffect(()=>{
-        UpdateImage(adViewer) //update Field Element using the image URL  
-    },[])*/
-    
     //Socket.IO listener for auto-updating
     useEffect( () => {
         const socket = io(flask_url);
         socket.on('connect', function(){});
         socket.on("CameraImageUpdated", (arg) => { 
-            console.log(adViewer.image);
+            //console.log(adViewer.image);
             if (arg === cameraID && adViewer.image) //Message applies to all the fields of the same cameraID
             {
                 UpdateImage(adViewer.image);
-                console.log(adViewer.image);
+                //console.log(adViewer.image);
             }
         });
     }, []);
@@ -112,7 +100,7 @@ export default function Advert(props){
             var formdata = new FormData();
             let blob = await fetch(image).then(r => r.blob());
         formdata.append("image",blob);
-        console.log(image)
+        //console.log(image)
         //set the image of field
         fetch(flask_url + "detectMake", {
         method: 'POST',
@@ -122,7 +110,7 @@ export default function Advert(props){
         .then(response => response.text())
         .then(response => {
             const json = JSON.parse(response)
-            console.log(json)
+            //console.log(json)
             if (Array.isArray(json) && json.length > 0) {
                 //console.log(json[0].name)
                 setAd(Ad().getImage(json[0].name));
@@ -141,9 +129,8 @@ export default function Advert(props){
           })
           .then(response => response.text())
           .then(response => {
-                
                 const json = JSON.parse(response)
-                console.log(json)
+                //console.log(json)
                 if(json.licencePlate){
                   setLP(json.licencePlate)
                 }else{
@@ -159,7 +146,7 @@ export default function Advert(props){
         <div>
         {(adViewer.image )?
             <div>
-                <h3>Welcome! {(LP !== false && LP != "NO LP") && ("LicencePlate number:" + LP)} </h3>
+                <h3>Welcome! {(LP !== false && LP !== "NO LP") && ("LicencePlate number:" + LP)} </h3>
                 <img src={ad} className="advertisement_page"/>
             </div>
             :
