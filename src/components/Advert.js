@@ -46,7 +46,7 @@ export default function Advert(props){
     let cameraID
     (props.cameraID? cameraID = props.cameraID:cameraID = "HKUST_001")
     const cameraUrl = flask_url + "getCameraProperties?cameraID="+cameraID
-    const cropNum = React.useRef(0)
+    //const cropNum = React.useRef(0)
     const [ad, setAd] = useState(Ad().getImage("bmw"))
     const adViewer = React.useRef("");
     const [LP, setLP] = useState(false);
@@ -63,13 +63,25 @@ export default function Advert(props){
                 .then(res => res.json())
                 .then((json) => {
                     console.log(json);
-                    cropNum.num = json.number_of_slots;
-                    if(json.number_of_slots > 0 && props.slot <= json.number_of_slots){
+                    //cropNum.num = json.number_of_slots;
+                    const slotIds = [];
+                    let name;
+                    for(let i = 0; i < json.number_of_slots; i++){
+                        name = json.sub_image_path[i].split("/")
+                        name = name[name.length-1].replace(cameraID+"_", "").replace(".jpg","")
+                        slotIds[name] = flask_url + json.sub_image_path[i]
+                    }
+                    /*if(json.number_of_slots > 0 && props.slot <= json.number_of_slots){
                         const image_url = flask_url + json.sub_image_path[props.slot-1];
                         adViewer.image = image_url;
                         console.log(image_url);
                         console.log(adViewer.image);
                         UpdateImage(image_url,json.number_of_slots);
+                    }*/
+                    if(props.slot in slotIds){
+                        adViewer.image = slotIds[props.slot];
+                        console.log(adViewer.image);
+                        UpdateImage(adViewer.image);
                     }
                 })
     }
@@ -86,13 +98,13 @@ export default function Advert(props){
             console.log(adViewer.image);
             if (arg === cameraID && adViewer.image) //Message applies to all the fields of the same cameraID
             {
-                UpdateImage(adViewer.image,cropNum.num);
+                UpdateImage(adViewer.image);
                 console.log(adViewer.image);
             }
         });
     }, []);
-    const UpdateImage = (image,num) => {
-        if(props.slot > num){
+    const UpdateImage = (image) => {
+        if(!adViewer.image){
             console.log("not slot")
             return;
         }
@@ -145,7 +157,7 @@ export default function Advert(props){
     }
     return(
         <div>
-        {(cropNum.num  > 0 && props.slot<=cropNum.num )?
+        {(adViewer.image )?
             <div>
                 {(LP !== false && LP != "NO LP") && <h3>Welcome! LicencePlate number: {LP}</h3>}
                 <img src={ad} className="advertisement_page"/>
