@@ -16,9 +16,6 @@ export default function Slot(props){
 
   //Socket.IO listener for auto-updating
   useEffect( () => {
-      //console.log('add camera ', props.cameraID);
-      //console.log('add socket ', props.url);
-      //console.log('add image ', props.image);
       const socket = io(props.url);
       socket.on('connect', function(){});
       socket.on("CameraImageUpdated", (arg) => { 
