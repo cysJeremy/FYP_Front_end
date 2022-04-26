@@ -84,7 +84,7 @@ export default function Slot(props){
 
   return(
     <div>
-      <fieldset disabled className = {props.className} >
+      <fieldset disabled className = {props.class} >
           <legend>{props.name}</legend>
           <img src = {image} className = "field_image" alt= {props.name+"-image"}/>
           {props.des && <div className = "information">
