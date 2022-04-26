@@ -1,21 +1,24 @@
 .field_main{
     display: inline-block;
     align-items: center;
-    width : 800px;
+    max-width : 800px;
     color: black;
     padding: 2px;
+    border-radius: 10px;
+    width: 97%;
 }
 
 .field_slot{
     display: inline-block;
     align-items: center;
-    width : 300px;
+    width : 250px;
     color: black;
     padding: 2px;
+    border-radius: 10px;
 }
 
 .field_image{
-    padding: 15px;
+    padding: 2px;
     padding-bottom: 2px;
     width: 90%;
 }

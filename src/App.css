@@ -1,6 +1,15 @@
 main{
-    max-width: 800px;
+    max-width: 1600px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+}
+
+.CameraFields{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex-grow: 2;
+    align-items: left;
+    margin: 0px;
 }

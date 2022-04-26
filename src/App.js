@@ -21,7 +21,9 @@ export default function App() {
             :
             <div>
                 <Header />
-                {CameraField}
+                <div className="CameraFields">
+                    {CameraField}
+                </div>
             </div>}
         </main>
     );

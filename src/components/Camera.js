@@ -79,7 +79,7 @@ export default function Camera(props) {
 
                     setMainField(<Slot 
                         cameraID={cameraID} 
-                        name="Original Camera Input" 
+                        name={"Camera ID: " + cameraID} 
                         image={flask_url + json.main_image_path} 
                         url={flask_url} 
                         className="field_main"
@@ -116,20 +116,21 @@ export default function Camera(props) {
     )):<br/>
           //brand={field.brand} 
     return(
-        <div className="Camera">
-            {mainField}
-            <br/>
-            {cropNum !== 0 && <div className="detection_container">
-                {fieldElements}
+        <fieldset disabled className="CameraContainer">
+            <div className="Camera">
+                {mainField}
                 <br/>
+                {cropNum !== 0 && <div className="detection_container">
+                    {fieldElements}
+                    <br/>
+                </div>
+                }
+                
+                <br/>
+                
+                <Fragment>Last Updated: {lastUpdateTime}</Fragment>
             </div>
-            }
-            
-            <br/>
-            
-            
-            <Fragment>Last Updated: {lastUpdateTime}</Fragment>
-        </div>
+        </fieldset>
 
     )
 }
