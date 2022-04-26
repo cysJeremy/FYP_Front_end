@@ -38,11 +38,8 @@ export default function Camera(props) {
         return {getImage};
     };
 
-    
-    let port;
-    (props.port)? port = props.port: port = "4000";
-    const flask_url = 'http://localhost:' + port + "/";
-    //const socket_url = 'ws://localhost:4000/'
+    const socket_url = 'ws://localhost:4000/'
+    const flask_url = 'http://localhost:4000/'
     let cameraID
     (props.cameraID? cameraID = props.cameraID:cameraID = "HKUST_001")
     const cameraUrl = flask_url + "getCameraProperties?cameraID="+cameraID
