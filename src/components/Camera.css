@@ -12,6 +12,7 @@
     display: grid;
     grid-template: auto auto / repeat(3, 1fr);
     gap: 20px;
+    justify-content: center;
     margin-bottom: 40px;
     max-width : 700px;
 }
