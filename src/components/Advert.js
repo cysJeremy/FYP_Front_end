@@ -42,7 +42,9 @@ export default function Advert(props){
         
     };
 
-    const flask_url = 'http://localhost:4000/'
+    let port;
+    (props.port)? port = props.port: port = "4000";
+    const flask_url = 'http://localhost:' + port + "/";
     let cameraID
     (props.cameraID? cameraID = props.cameraID:cameraID = "HKUST_001")
     const cameraUrl = flask_url + "getCameraProperties?cameraID="+cameraID

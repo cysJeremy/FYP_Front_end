@@ -8,16 +8,18 @@ export default function App() {
     const queryParams = new URLSearchParams(window.location.search)
     const cameraID = queryParams.get("cameraID")
     const slotID = queryParams.get("slotID")
+    const APIPort = queryParams.get("APIPort") 
     let CameraField
     if(cameraID){
-        CameraField = cameraID.split(",").map(id =>(<Camera className = "Camera" cameraID={id}/>))
+        CameraField = cameraID.split(",").map(id =>(
+        <Camera className = "Camera" cameraID={id} port={APIPort} />))
     }else{
-        CameraField = (<Camera className="Camera" cameraID={cameraID} />)
+        CameraField = (<Camera className="Camera" cameraID={cameraID} port={APIPort} />)
     }
     return (
         <main>
             {slotID?
-            <Advert slotID={slotID} cameraID={cameraID} />
+            <Advert slotID={slotID} cameraID={cameraID} port={APIPort}/>
             :
             <div>
                 <Header />
